@@ -35,7 +35,7 @@ const TYPES = {
   ".ico": "image/x-icon",
 };
 
-createServer(async (req, res) => {
+const server = createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${port}`);
   const relPath = decodeURIComponent(url.pathname).replace(/^\/+/, "") || "index.html";
 
@@ -56,6 +56,21 @@ createServer(async (req, res) => {
   } catch {
     res.writeHead(404, { "content-type": "text/plain" }).end("not found");
   }
-}).listen(port, () => {
+});
+
+server.on("error", (error) => {
+  if (error.code === "EADDRINUSE") {
+    console.error(
+      `Port ${port} is already in use.\n` +
+        `  Something is already serving there — try http://localhost:${port} first.\n` +
+        `  To use a different port:  node serve.mjs ${port + 1}`
+    );
+    process.exitCode = 1;
+    return;
+  }
+  throw error;
+});
+
+server.listen(port, () => {
   console.log(`serving ${base}\n  → http://localhost:${port}`);
 });
