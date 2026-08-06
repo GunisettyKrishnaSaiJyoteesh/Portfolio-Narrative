@@ -1,0 +1,19 @@
+/* Overlay for scripts/ui/cursor-glow.js. The element is created by that
+   module, so there is no empty canvas sitting in the markup when the effect
+   is skipped (reduced motion, touch, or no JavaScript at all).
+
+   z-index sits below the grain and vignette so the glow is textured and
+   edge-darkened along with everything else, and below the topbar and rail so
+   it passes behind the page chrome rather than washing over it. */
+
+#cursor-glow{
+  position:fixed;
+  inset:0;
+  /* A canvas is a replaced element: inset:0 alone leaves it at its intrinsic
+     300x150, because width:auto resolves to the intrinsic width and the
+     over-constrained inset is simply dropped. The size has to be explicit. */
+  width:100%;
+  height:100%;
+  z-index:55;
+  pointer-events:none;   /* never intercept a click */
+}

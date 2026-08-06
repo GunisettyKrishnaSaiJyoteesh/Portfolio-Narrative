@@ -11,6 +11,7 @@ import { initReveals } from "./ui/reveal.js";
 import { initChapterRail } from "./ui/chapter-rail.js";
 import { initCounters } from "./ui/counters.js";
 import { initTilt } from "./ui/tilt.js";
+import { createCursorGlow } from "./ui/cursor-glow.js";
 import { createProgressBar } from "./ui/progress-bar.js";
 import { createHeroScene } from "./scenes/hero-signal.js";
 import { createDeepVisionScene } from "./scenes/deepvision-heatmap.js";
@@ -45,6 +46,9 @@ function boot() {
 
   const progressBar = createProgressBar(document.getElementById("progress"));
   if (progressBar) director.addFrameListener(progressBar);
+
+  const cursorGlow = createCursorGlow({ reducedMotion });
+  if (cursorGlow) director.addFrameListener(cursorGlow);
 
   for (const [id, createScene] of SCENES) {
     const section = document.getElementById(id);
