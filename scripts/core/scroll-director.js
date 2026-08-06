@@ -8,13 +8,16 @@ import { clamp } from "./math.js";
  *   - frame listeners — anything that just wants scrollY each frame
  *
  * Rendering is culled to sections near the viewport, so the three case-study
- * scenes never burn cycles while you are reading the timeline. With reduced
- * motion requested, every scrub is pinned to its finished state (progress 1)
- * and the scenes become static illustrations.
+ * scenes never burn cycles while you are reading the timeline.
+ *
+ * `pinned` holds every scrub at its finished state (progress 1), turning the
+ * scenes into static illustrations. Two callers want that: a visitor who asked
+ * for reduced motion, and phones, where the case studies are laid out as
+ * flowing articles rather than pinned frames.
  */
 export class ScrollDirector {
-  constructor({ reducedMotion = false, cullMargin = 0.2 } = {}) {
-    this.reducedMotion = reducedMotion;
+  constructor({ pinned = false, cullMargin = 0.2 } = {}) {
+    this.pinned = pinned;
     this.cullMargin = cullMargin;
     this.tracks = [];
     this.listeners = [];
@@ -73,7 +76,7 @@ export class ScrollDirector {
         rect.top < viewport * (1 + this.cullMargin);
       if (!near) continue;
 
-      const progress = this.reducedMotion
+      const progress = this.pinned
         ? 1
         : clamp((scrollY - track.top) / track.range, 0, 1);
       track.render(progress, time);

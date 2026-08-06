@@ -19,7 +19,7 @@ const HEIGHT = 2090; // .case is 260vh; 100vh of it is the sticky child
 const RANGE = HEIGHT - VIEWPORT;
 
 /** Installs a fake window and returns a harness for driving the director. */
-function harness({ reducedMotion = false } = {}) {
+function harness({ pinned = false } = {}) {
   let scrollY = 0;
 
   globalThis.window = {
@@ -38,7 +38,7 @@ function harness({ reducedMotion = false } = {}) {
   };
 
   const rendered = [];
-  const director = new ScrollDirector({ reducedMotion });
+  const director = new ScrollDirector({ pinned });
   director.addScrub(section, (progress) => rendered.push(progress));
 
   return {
@@ -78,9 +78,10 @@ test("scenes near the viewport are still rendered", () => {
   assert.notEqual(at(TOP - VIEWPORT * 0.5), undefined);
 });
 
-test("reduced motion pins every scene to its finished state", () => {
-  const { at } = harness({ reducedMotion: true });
+test("pinned mode holds every scene at its finished state", () => {
+  // reduced motion and phone layout both take this path
+  const { at } = harness({ pinned: true });
 
-  assert.equal(at(TOP), 1, "no animation: show the resolved scene immediately");
+  assert.equal(at(TOP), 1, "no scrubbing: show the resolved scene immediately");
   assert.equal(at(TOP + RANGE * 0.5), 1);
 });

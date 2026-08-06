@@ -24,14 +24,22 @@ const SCENES = [
   ["ev", createSegmentsScene],
 ];
 
+/** Viewports where case studies lay out as flowing articles instead of pinned
+ *  frames, so there is nothing to scrub. Must match the breakpoint at the
+ *  bottom of styles/chapters/case-study.css. */
+const UNPINNED = "(max-width: 900px), (max-height: 600px)";
+
 function boot() {
   const reducedMotion = prefersReducedMotion();
+  const unpinned = window.matchMedia(UNPINNED).matches;
 
   initReveals();
   initChapterRail();
   initCounters({ reducedMotion });
 
-  const director = new ScrollDirector({ reducedMotion });
+  // reduced motion asks us not to scrub; the article layout has nothing to
+  // scrub against. Either way, scenes render resolved.
+  const director = new ScrollDirector({ pinned: reducedMotion || unpinned });
 
   const progressBar = createProgressBar(document.getElementById("progress"));
   if (progressBar) director.addFrameListener(progressBar);

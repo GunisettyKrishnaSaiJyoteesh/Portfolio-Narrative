@@ -40,18 +40,63 @@
 #cs{ --tint:var(--clinic); }
 #ev{ --tint:var(--ev);     }
 
+/* The overcrowding alert sits on the dark panel, so it keeps the luminous
+   thermal orange rather than the darkened page tint. */
+#dv-alert{ color:#e0724a; }
+
 .case .kicker,
 .case .beat .b-label b{ color:var(--tint); }
 .case .beat{ border-color:color-mix(in srgb, var(--tint) 45%, transparent); }
 .case .links a:hover{ color:var(--tint); border-color:var(--tint); }
 .case .scene{ box-shadow:0 0 90px -30px color-mix(in srgb, var(--tint) 28%, transparent); }
 
-@media (max-width:900px){
+/* ---- short viewports -------------------------------------------------
+   The stage is pinned to 100vh and clipped, so on a laptop — or any display
+   at OS scaling, which shrinks the CSS viewport — the tail of the copy was
+   being cut off: the tags and the demo/source links, i.e. the actual payoff.
+   The EV case hits it first because its heading runs to three lines.
+   Compress the vertical rhythm instead of letting the ending disappear. */
+@media (min-width:901px) and (max-height:860px){
+  .case .stage{ padding-block:clamp(2.5rem,5vh,3.5rem); }
+  .case .kicker{ margin-bottom:.8rem; }
+  .case h2{ font-size:clamp(1.75rem,3.2vw,2.6rem); margin-bottom:.9rem; }
+  .case .beats{ margin-top:1rem; gap:.75rem; }
+  .case .beat{ padding-left:1rem; }
+  .case .beat p{ font-size:.92rem; }
+  .case .tags{ margin-top:1rem; }
+  .case .links{ margin-top:1rem; }
+}
+@media (min-width:901px) and (max-height:720px){
+  .case .stage{ padding-block:2.25rem; }
+  .case h2{ font-size:clamp(1.5rem,2.6vw,2rem); margin-bottom:.7rem; }
+  .case .beats{ margin-top:.75rem; gap:.5rem; }
+  .case .beat p{ font-size:.85rem; line-height:1.5; }
+  .case .tags{ margin-top:.75rem; }
+  .case .links{ margin-top:.85rem; }
+  .case .chip{ font-size:.63rem; padding:.26rem .58rem; }
+}
+
+/* ---- phones, and any viewport too short to pin -----------------------
+   Unpin entirely. A 100vh clipped frame cannot hold a scene, three beats,
+   the tag row and the links at phone widths — the links lost, every time.
+   So the case study flows like an article instead: the scene is a fixed
+   band, the copy runs beneath it, and nothing is ever clipped. The scenes
+   render resolved rather than scrubbed (scripts/main.js pins them), which
+   also spares the phone three scroll-driven canvases.
+
+   The height half of this query is the floor for the pinned layout: below
+   it, no amount of compression fits, so fall back here rather than clip.
+   Keep this query in sync with UNPINNED in scripts/main.js. */
+@media (max-width:900px), (max-height:600px){
+  .case{ height:auto; }
+  .case .sticky{ position:static; height:auto; overflow:visible; }
   .case .stage{
+    height:auto;
     grid-template-columns:1fr; grid-template-rows:auto auto;
-    gap:1.2rem; align-items:start; overflow:hidden;
+    gap:1.4rem; align-items:start;
+    padding-block:clamp(3.5rem,8vh,5rem);
   }
-  .case .scene{ height:38vh; min-height:250px; }
-  .case .copy{ align-self:center; }
+  .case .scene{ height:min(46vh,320px); }
+  .case .copy{ align-self:start; }
   .case h2{ font-size:clamp(1.6rem,6.4vw,2.4rem); }
 }

@@ -6,6 +6,8 @@
 
 #hero-canvas{ position:absolute; inset:0; width:100%; height:100%; }
 
+#ch0 .lede{ margin-top:1.6rem; }
+
 .hero-state{
   font-family:var(--mono); font-size:.72rem; letter-spacing:.3em; text-transform:uppercase;
   color:var(--faint); margin-top:2.6rem;
@@ -26,6 +28,27 @@
 @keyframes hint{
   0%,100%{ transform:translate(-50%,0); opacity:.7 }
   50%    { transform:translate(-50%,8px); opacity:1 }
+}
+
+/* Short viewports: the prologue is clipped to 100vh like the case studies,
+   and the "raw noise → signal locked" line is the first thing to go. */
+@media (max-height:720px){
+  #ch0 .frame{ padding-block:clamp(3.5rem,7vh,5rem); }
+  #ch0 h1{ font-size:clamp(2.1rem,5.4vw,3.8rem); }
+  #ch0 .lede{ font-size:1rem; margin-top:1.1rem; }
+  .cta-row{ margin-top:1.5rem; }
+  .hero-state{ margin-top:1.5rem; }
+  .scroll-hint{ bottom:1.2rem; }
+}
+
+/* Extremely short viewports. The headline, the sentence and the two buttons
+   are the message; the status line and the scroll cue are flourish, so they
+   are what gets dropped rather than anything the visitor needs to read. */
+@media (max-height:520px){
+  #ch0 h1{ font-size:clamp(1.8rem,4.6vw,2.6rem); }
+  #ch0 .lede{ font-size:.95rem; }
+  .hero-state,
+  .scroll-hint{ display:none; }
 }
 
 @media (prefers-reduced-motion: reduce){
