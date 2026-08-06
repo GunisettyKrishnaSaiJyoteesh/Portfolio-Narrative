@@ -1,0 +1,39 @@
+/* ============================================================
+   Design tokens — the single source of truth for the page palette.
+   Scene-internal colours (the dark instrument panels) are NOT here:
+   they live in scripts/config/palette.js, because they are painted
+   onto canvas rather than applied as CSS.
+   ============================================================ */
+:root{
+  /* surfaces — warm paper */
+  --ink:      #f6f1e7;   /* page                    */
+  --ink-2:    #efe8d9;   /* raised panel            */
+  --ink-3:    #e6dcc8;   /* deeper panel            */
+
+  /* rules */
+  --line:     rgba(32,36,46,.12);
+  --line-2:   rgba(32,36,46,.24);
+
+  /* text */
+  --ivory:    #20242e;   /* primary (soft ink)      */
+  --muted:    rgba(32,36,46,.66);
+  --faint:    rgba(32,36,46,.42);
+
+  /* accent */
+  --amber:    #a87b2d;
+  --amber-dim:rgba(168,123,45,.16);
+
+  /* case-study tints — page side (darkened for light background) */
+  --heat:     #b8502c;   /* DeepVision */
+  --clinic:   #1f7d74;   /* CliniScan  */
+  --ev:       #5d8636;   /* Segments   */
+
+  /* instrument panels */
+  --scene-bg: #10141b;
+  --scene-fg: #f2ede3;
+
+  /* type */
+  --serif:    "Fraunces", Georgia, serif;
+  --sans:     "Space Grotesk", system-ui, sans-serif;
+  --mono:     "JetBrains Mono", ui-monospace, monospace;
+}

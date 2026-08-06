@@ -1,0 +1,28 @@
+/* The instrument panel: a deliberately dark frame set into the bright page.
+   Shared shell for all three case-study visualisations. Keeping it dark is
+   what makes a heatmap, an X-ray and a cluster plot legible on warm paper. */
+
+.scene{
+  position:relative; height:min(62vh,560px);
+  border:1px solid var(--line-2);
+  background:var(--scene-bg);
+  overflow:hidden;
+}
+.scene canvas, .scene svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+.scene .hud{
+  position:absolute; left:1rem; top:.9rem; z-index:3;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.18em;
+  text-transform:uppercase; color:rgba(242,237,227,.55);
+}
+.scene .hud b{ font-weight:500; }
+
+.scene .readout{
+  position:absolute; right:1rem; bottom:.9rem; z-index:3; text-align:right;
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; color:var(--scene-fg);
+}
+.scene .readout .alert{
+  display:block; margin-top:.3rem; font-size:.6rem; letter-spacing:.22em;
+  opacity:0; transition:opacity .3s;
+}
+.scene .readout .alert.on{ opacity:1; }

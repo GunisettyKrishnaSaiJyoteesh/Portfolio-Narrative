@@ -1,0 +1,23 @@
+/* 07 — The Road. Vertical timeline, newest first. */
+
+.road{ margin-top:2.6rem; position:relative; }
+.road::before{
+  content:""; position:absolute; left:7px; top:6px; bottom:6px; width:1px;
+  background:var(--line-2);
+}
+
+.stop{ position:relative; padding:0 0 2.6rem 2.6rem; }
+.stop:last-child{ padding-bottom:0; }
+.stop::before{
+  content:""; position:absolute; left:0; top:8px; width:15px; height:15px; border-radius:50%;
+  border:1px solid var(--amber); background:var(--ink);
+}
+.stop.now::before{ background:var(--amber); box-shadow:0 0 18px rgba(168,123,45,.5); }
+
+.stop .when{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--amber);
+}
+.stop h3{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.4rem 0 .1rem; }
+.stop .org{ color:var(--muted); font-size:.95rem; }
+.stop p{ color:var(--muted); font-size:.95rem; margin-top:.55rem; max-width:38em; }

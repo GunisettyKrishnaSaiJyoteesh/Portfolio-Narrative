@@ -5,327 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>G. K. S. Jyoteesh — Signal from Noise</title>
 <meta name="description" content="The portfolio of Gunisetty Krishna Sai Jyoteesh — an aspiring data scientist in love with AI and machine learning, turning raw, real-time data into decisions. Told as a story, one chapter per scroll." />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
-/* ============================================================
-   SIGNAL FROM NOISE — design tokens
-   warm paper / ink text / one amber accent; case tints in-scene.
-   The three case scenes stay dark on purpose — instrument panels
-   set into a bright editorial page.
-   ============================================================ */
-:root{
-  --ink:      #f6f1e7;   /* page: warm paper       */
-  --ink-2:    #efe8d9;   /* raised panel           */
-  --ink-3:    #e6dcc8;   /* deeper panel           */
-  --line:     rgba(32,36,46,.12);
-  --line-2:   rgba(32,36,46,.24);
-  --ivory:    #20242e;   /* text: soft ink         */
-  --muted:    rgba(32,36,46,.66);
-  --faint:    rgba(32,36,46,.42);
-  --amber:    #a87b2d;
-  --amber-dim:rgba(168,123,45,.16);
-  --scene-bg: #10141b;   /* dark instrument panels */
-  --scene-fg: #f2ede3;
-  --heat:     #b8502c;   /* DeepVision  */
-  --clinic:   #1f7d74;   /* CliniScan   */
-  --ev:       #5d8636;   /* Segments    */
-  --serif:    "Fraunces", Georgia, serif;
-  --sans:     "Space Grotesk", system-ui, sans-serif;
-  --mono:     "JetBrains Mono", ui-monospace, monospace;
-}
-*{ margin:0; padding:0; box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
-body{
-  background:var(--ink);
-  color:var(--ivory);
-  font-family:var(--sans);
-  font-size:17px;
-  line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
-::selection{ background:var(--amber); color:var(--ink); }
-a{ color:inherit; }
-img{ max-width:100%; display:block; }
 
-/* film grain + vignette */
-body::before{
-  content:""; position:fixed; inset:0; z-index:60; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  opacity:.045; mix-blend-mode:overlay;
-}
-body::after{
-  content:""; position:fixed; inset:0; z-index:59; pointer-events:none;
-  background:radial-gradient(120% 90% at 50% 40%, transparent 62%, rgba(94,74,38,.10) 100%);
-}
+<!-- Load order is the cascade: tokens → base → type → layout → components → chapters -->
+<link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/base.css" />
+<link rel="stylesheet" href="styles/typography.css" />
+<link rel="stylesheet" href="styles/layout.css" />
+<link rel="stylesheet" href="styles/components/topbar.css" />
+<link rel="stylesheet" href="styles/components/progress-bar.css" />
+<link rel="stylesheet" href="styles/components/chapter-rail.css" />
+<link rel="stylesheet" href="styles/components/button.css" />
+<link rel="stylesheet" href="styles/components/chip.css" />
+<link rel="stylesheet" href="styles/components/reveal.css" />
+<link rel="stylesheet" href="styles/components/scene.css" />
+<link rel="stylesheet" href="styles/chapters/prologue.css" />
+<link rel="stylesheet" href="styles/chapters/analyst.css" />
+<link rel="stylesheet" href="styles/chapters/instruments.css" />
+<link rel="stylesheet" href="styles/chapters/case-study.css" />
+<link rel="stylesheet" href="styles/chapters/field-notes.css" />
+<link rel="stylesheet" href="styles/chapters/road.css" />
+<link rel="stylesheet" href="styles/chapters/proof.css" />
+<link rel="stylesheet" href="styles/chapters/epilogue.css" />
 
-/* ---------- chrome: top bar, progress, chapter rail ---------- */
-.topbar{
-  position:fixed; inset:0 0 auto 0; z-index:80;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:1.05rem clamp(1.25rem,4vw,3rem);
-  backdrop-filter:blur(10px);
-  background:linear-gradient(rgba(246,241,231,.88), rgba(246,241,231,0));
-}
-.monogram{
-  font-family:var(--mono); font-size:.8rem; letter-spacing:.34em;
-  color:var(--ivory); text-decoration:none;
-}
-.monogram b{ color:var(--amber); font-weight:500; }
-.topbar nav{ display:flex; gap:1.8rem; }
-.topbar nav a{
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.18em;
-  text-transform:uppercase; text-decoration:none; color:var(--muted);
-  transition:color .25s;
-}
-.topbar nav a:hover, .topbar nav a:focus-visible{ color:var(--amber); }
-
-#progress{
-  position:fixed; top:0; left:0; height:2px; width:100%; z-index:90;
-  transform-origin:0 50%; transform:scaleX(0);
-  background:var(--amber);
-}
-
-.rail{
-  position:fixed; right:clamp(.8rem,2.4vw,2.2rem); top:50%; transform:translateY(-50%);
-  z-index:80; display:flex; flex-direction:column; gap:.9rem; list-style:none;
-}
-.rail a{
-  display:flex; align-items:center; justify-content:flex-end; gap:.6rem; text-decoration:none;
-  font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; color:var(--faint);
-  transition:color .3s;
-}
-.rail a .tick{ width:14px; height:1px; background:var(--faint); transition:width .3s, background .3s; }
-.rail a .lbl{ opacity:0; transform:translateX(4px); transition:opacity .3s, transform .3s; }
-.rail a:hover .lbl{ opacity:1; transform:none; }
-.rail li.active a{ color:var(--amber); }
-.rail li.active a .tick{ width:26px; background:var(--amber); }
-.rail li.active a .lbl{ opacity:1; transform:none; }
-@media (max-width:900px){ .rail{ display:none; } .topbar nav a.hide-sm{ display:none; } }
-
-/* ---------- shared layout ---------- */
-.chapter{ position:relative; }
-.frame{
-  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-  padding:clamp(5.5rem,10vh,8rem) clamp(1.4rem,6vw,7rem);
-  max-width:1280px; margin:0 auto;
-}
-.eyebrow{
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.3em;
-  text-transform:uppercase; color:var(--amber); margin-bottom:1.4rem;
-}
-.eyebrow .rule{ display:inline-block; width:34px; height:1px; background:var(--amber); vertical-align:middle; margin-right:.8rem; }
-h1,h2{ font-family:var(--serif); font-weight:400; letter-spacing:-.01em; }
-h1{ font-size:clamp(2.6rem,7.2vw,5.6rem); line-height:1.04; }
-h2{ font-size:clamp(2rem,4.6vw,3.6rem); line-height:1.08; margin-bottom:1.6rem; }
-h2 em, h1 em{ font-style:italic; color:var(--amber); }
-.lede{ font-size:clamp(1.02rem,1.5vw,1.22rem); color:var(--muted); max-width:34em; }
-.prose p{ color:var(--muted); max-width:36em; }
-.prose p + p{ margin-top:1em; }
-.prose strong{ color:var(--ivory); font-weight:500; }
-
-/* reveals */
-.reveal{ opacity:0; transform:translateY(26px); transition:opacity .9s cubic-bezier(.2,.6,.2,1), transform .9s cubic-bezier(.2,.6,.2,1); }
-.reveal.in{ opacity:1; transform:none; }
-.reveal[data-d="1"]{ transition-delay:.12s } .reveal[data-d="2"]{ transition-delay:.24s }
-.reveal[data-d="3"]{ transition-delay:.36s } .reveal[data-d="4"]{ transition-delay:.48s }
-
-/* mono chip */
-.chip{
-  display:inline-block; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em;
-  padding:.34rem .7rem; border:1px solid var(--line-2); border-radius:999px; color:var(--muted);
-}
-
-/* ============ CH 00 — PROLOGUE ============ */
-#ch0{ height:230vh; }
-#ch0 .sticky{ position:sticky; top:0; height:100vh; overflow:hidden; display:flex; align-items:center; }
-#hero-canvas{ position:absolute; inset:0; width:100%; height:100%; }
-#ch0 .frame{ position:relative; z-index:2; min-height:0; width:100%; min-width:0; }
-.hero-state{
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--faint); margin-top:2.6rem; display:flex; align-items:center; gap:.6rem 1rem; flex-wrap:wrap;
-}
-.hero-state .sig{ color:var(--amber); opacity:0; transition:opacity .4s; }
-.hero-state.signal .noi{ opacity:.35; text-decoration:line-through; }
-.hero-state.signal .sig{ opacity:1; }
-.cta-row{ display:flex; gap:1.1rem; flex-wrap:wrap; margin-top:2.4rem; }
-.btn{
-  font-family:var(--mono); font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
-  text-decoration:none; padding:.95rem 1.7rem; border-radius:2px;
-  border:1px solid var(--amber); color:#fff; background:var(--amber);
-  transition:background .25s, color .25s, border-color .25s;
-}
-.btn:hover{ background:transparent; color:var(--amber); }
-.btn.ghost{ background:transparent; color:var(--muted); border-color:var(--line-2); }
-.btn.ghost:hover{ color:var(--amber); border-color:var(--amber); }
-.scroll-hint{
-  position:absolute; left:50%; bottom:2rem; transform:translateX(-50%); z-index:2;
-  font-family:var(--mono); font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; color:var(--faint);
-  animation:hint 2.6s ease-in-out infinite;
-}
-@keyframes hint{ 0%,100%{ transform:translate(-50%,0); opacity:.7 } 50%{ transform:translate(-50%,8px); opacity:1 } }
-
-/* ============ CH 01 — THE ANALYST ============ */
-.split{ display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(2rem,6vw,5.5rem); align-items:center; }
-.split > *{ min-width:0; }
-@media (max-width:900px){ .split{ grid-template-columns:1fr; } }
-.portrait{
-  position:relative; border:1px solid var(--line-2); padding:1rem; background:var(--ink-2);
-}
-.portrait img{
-  width:100%; aspect-ratio:4/5; object-fit:cover; object-position:50% 18%;
-  filter:grayscale(1) contrast(1.06) brightness(1.14);
-}
-.portrait figcaption{
-  display:flex; justify-content:space-between; flex-wrap:wrap; gap:.3rem 1rem; margin-top:.9rem;
-  font-family:var(--mono); font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);
-}
-.portrait::after{
-  content:""; position:absolute; top:-9px; left:-9px; width:26px; height:26px;
-  border-top:1px solid var(--amber); border-left:1px solid var(--amber);
-}
-.edu{
-  margin-top:2.2rem; border-left:1px solid var(--amber); padding:.35rem 0 .35rem 1.4rem;
-}
-.edu .deg{ font-family:var(--serif); font-size:1.25rem; }
-.edu .inst{ color:var(--muted); font-size:.95rem; margin-top:.2rem; }
-.edu .meta{ font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; color:var(--amber); margin-top:.55rem; text-transform:uppercase; }
-
-/* ============ CH 02 — INSTRUMENTS ============ */
-.inst-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.4rem; }
-@media (max-width:1020px){ .inst-grid{ grid-template-columns:repeat(2,1fr);} }
-@media (max-width:640px){ .inst-grid{ grid-template-columns:1fr;} }
-.inst{ background:var(--ink); padding:1.9rem 1.7rem; transition:background .35s; }
-.inst:hover{ background:var(--ink-2); }
-.inst .no{ font-family:var(--mono); font-size:.64rem; color:var(--faint); letter-spacing:.2em; }
-.inst h3{ font-family:var(--serif); font-weight:400; font-size:1.28rem; margin:.7rem 0 1.1rem; }
-.inst ul{ list-style:none; display:flex; flex-wrap:wrap; gap:.45rem; }
-.inst li{ font-family:var(--mono); font-size:.66rem; letter-spacing:.06em; color:var(--muted); padding:.3rem .62rem; border:1px solid var(--line); border-radius:999px; }
-.inst li.hot{ color:var(--amber); border-color:rgba(168,123,45,.45); }
-
-/* ============ CASE STUDIES (scrub scenes) ============ */
-.case{ height:260vh; }
-.case .sticky{ position:sticky; top:0; height:100vh; overflow:hidden; }
-.case .stage{
-  height:100%; max-width:1380px; margin:0 auto;
-  display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.5rem,4vw,4rem);
-  align-items:center; padding:clamp(4.5rem,9vh,6rem) clamp(1.4rem,5vw,5rem);
-}
-.case .stage > *{ min-width:0; }
-@media (max-width:900px){
-  .case .stage{ grid-template-columns:1fr; grid-template-rows:auto auto; gap:1.2rem; align-items:start; overflow:hidden; }
-  .case .scene{ height:38vh; min-height:250px; }
-  .case .copy{ align-self:center; }
-  .case h2{ font-size:clamp(1.6rem,6.4vw,2.4rem); }
-}
-.scene{
-  position:relative; height:min(62vh,560px); border:1px solid var(--line-2);
-  background:var(--scene-bg); overflow:hidden;
-}
-@media (max-width:900px){ .scene{ height:100%; min-height:0; } }
-.scene canvas, .scene svg{ position:absolute; inset:0; width:100%; height:100%; }
-.scene .hud{
-  position:absolute; left:1rem; top:.9rem; z-index:3;
-  font-family:var(--mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(242,237,227,.55);
-}
-.scene .hud b{ font-weight:500; }
-.scene .readout{
-  position:absolute; right:1rem; bottom:.9rem; z-index:3; text-align:right;
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; color:var(--scene-fg);
-}
-.scene .readout .alert{ display:block; margin-top:.3rem; font-size:.6rem; letter-spacing:.22em; opacity:0; transition:opacity .3s; }
-.scene .readout .alert.on{ opacity:1; }
-.case .kicker{ font-family:var(--mono); font-size:.72rem; letter-spacing:.3em; text-transform:uppercase; margin-bottom:1.3rem; }
-.case .beats{ margin-top:1.6rem; display:grid; gap:1.1rem; max-width:34em; }
-.beat{ border-left:1px solid var(--line-2); padding-left:1.2rem; }
-.beat .b-label{ font-family:var(--mono); font-size:.62rem; letter-spacing:.24em; text-transform:uppercase; color:var(--faint); }
-.beat p{ color:var(--muted); font-size:.97rem; margin-top:.3rem; }
-.case .tags{ display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1.5rem; }
-.case .links{ display:flex; flex-wrap:wrap; gap:1rem 1.6rem; margin-top:1.6rem; }
-.case .links a{
-  font-family:var(--mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
-  text-decoration:none; padding-bottom:.3rem; border-bottom:1px solid var(--line-2); transition:border-color .25s,color .25s;
-}
-/* per-case tint */
-#dv  { --tint:var(--heat); }
-#cs  { --tint:var(--clinic); }
-#ev  { --tint:var(--ev); }
-.case .kicker, .case .beat .b-label b{ color:var(--tint); }
-.case .beat{ border-color:color-mix(in srgb, var(--tint) 45%, transparent); }
-.case .links a{ color:var(--muted); }
-.case .links a:hover{ color:var(--tint); border-color:var(--tint); }
-.case .scene{ box-shadow:0 0 90px -30px color-mix(in srgb, var(--tint) 28%, transparent); }
-
-/* ============ CH 06 — FIELD NOTES ============ */
-.notes{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.4rem; }
-@media (max-width:820px){ .notes{ grid-template-columns:1fr; } }
-.note{ background:var(--ink); padding:2rem 1.8rem; display:flex; flex-direction:column; gap:.75rem; transition:background .35s; position:relative; }
-.note:hover{ background:var(--ink-2); }
-.note .no{ font-family:var(--mono); font-size:.64rem; letter-spacing:.2em; color:var(--faint); }
-.note h3{ font-family:var(--serif); font-weight:400; font-size:1.45rem; }
-.note p{ color:var(--muted); font-size:.94rem; flex-grow:1; }
-.note .row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem 1rem; margin-top:.6rem; }
-.note .stack{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; color:var(--faint); }
-.note .go{ font-family:var(--mono); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; color:var(--muted); border-bottom:1px solid var(--line-2); padding-bottom:.25rem; transition:color .25s,border-color .25s; }
-.note .go:hover{ color:var(--amber); border-color:var(--amber); }
-
-/* ============ CH 07 — THE ROAD ============ */
-.road{ margin-top:2.6rem; position:relative; }
-.road::before{ content:""; position:absolute; left:7px; top:6px; bottom:6px; width:1px; background:var(--line-2); }
-.stop{ position:relative; padding:0 0 2.6rem 2.6rem; }
-.stop:last-child{ padding-bottom:0; }
-.stop::before{
-  content:""; position:absolute; left:0; top:8px; width:15px; height:15px; border-radius:50%;
-  border:1px solid var(--amber); background:var(--ink);
-}
-.stop.now::before{ background:var(--amber); box-shadow:0 0 18px rgba(168,123,45,.5); }
-.stop .when{ font-family:var(--mono); font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--amber); }
-.stop h3{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.4rem 0 .1rem; }
-.stop .org{ color:var(--muted); font-size:.95rem; }
-.stop p{ color:var(--muted); font-size:.95rem; margin-top:.55rem; max-width:38em; }
-
-/* ============ CH 08 — PROOF ============ */
-.stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.4rem; }
-@media (max-width:820px){ .stats{ grid-template-columns:repeat(2,1fr);} }
-.stat{ background:var(--ink); padding:2.2rem 1.6rem; }
-.stat .n{ font-family:var(--serif); font-size:clamp(2.3rem,4.5vw,3.4rem); color:var(--amber); line-height:1; }
-.stat .l{ font-family:var(--mono); font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-top:.8rem; display:block; }
-.certs{ margin-top:3rem; display:grid; grid-template-columns:repeat(2,1fr); gap:.9rem 2.5rem; max-width:820px; }
-@media (max-width:640px){ .certs{ grid-template-columns:1fr; } }
-.cert{ display:flex; justify-content:space-between; gap:1rem; border-bottom:1px solid var(--line); padding-bottom:.8rem; }
-.cert span{ color:var(--muted); font-size:.95rem; }
-.cert em{ font-family:var(--mono); font-style:normal; font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); align-self:center; }
-
-/* ============ CH 09 — EPILOGUE ============ */
-#ch9 .frame{ text-align:center; align-items:center; }
-#ch9 .lede{ margin:0 auto; }
-.mail{
-  display:inline-block; margin-top:2.6rem; font-family:var(--serif);
-  font-size:clamp(1.3rem,3.4vw,2.5rem); color:var(--ivory); text-decoration:none;
-  border-bottom:1px solid var(--amber); padding-bottom:.35rem; transition:color .3s;
-  overflow-wrap:anywhere;
-}
-.mail:hover{ color:var(--amber); }
-.socials{ display:flex; gap:2rem; justify-content:center; margin-top:2.6rem; }
-.socials a{ font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; color:var(--muted); transition:color .25s; }
-.socials a:hover{ color:var(--amber); }
-footer{
-  border-top:1px solid var(--line); padding:2.2rem clamp(1.4rem,6vw,7rem);
-  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
-  font-family:var(--mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--faint);
-}
-
-/* focus visibility */
-a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
-
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
-  .reveal{ opacity:1; transform:none; transition:none; }
-  .scroll-hint{ animation:none; }
-}
-</style>
+<script type="module" src="scripts/main.js"></script>
 </head>
 <body>
 
@@ -356,7 +62,7 @@ a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-off
 <main>
 
 <!-- ==================== 00 · PROLOGUE ==================== -->
-<section class="chapter" id="ch0" data-scrub>
+<section class="chapter" id="ch0">
   <div class="sticky">
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
     <div class="frame">
@@ -407,7 +113,7 @@ a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-off
         </div>
       </div>
       <figure class="portrait reveal" data-d="2">
-        <img src="pp.jpg" alt="Portrait of G. K. S. Jyoteesh" loading="lazy" />
+        <img src="assets/pp.jpg" alt="Portrait of G. K. S. Jyoteesh" loading="lazy" />
         <figcaption><span>fig. 01 — the analyst</span><span>17.68° N, 83.21° E</span></figcaption>
       </figure>
     </div>
@@ -444,7 +150,7 @@ a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-off
 </section>
 
 <!-- ==================== 03 · CASE STUDY: DEEPVISION ==================== -->
-<section class="chapter case" id="dv" data-scrub>
+<section class="chapter case" id="dv">
   <div class="sticky">
     <div class="stage">
       <div class="scene reveal">
@@ -476,7 +182,7 @@ a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-off
 </section>
 
 <!-- ==================== 04 · CASE STUDY: CLINISCAN ==================== -->
-<section class="chapter case" id="cs" data-scrub>
+<section class="chapter case" id="cs">
   <div class="sticky">
     <div class="stage">
       <div class="scene reveal">
@@ -494,27 +200,24 @@ a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-off
             </linearGradient>
           </defs>
           <rect width="600" height="520" fill="#0d1117"/>
-          <g id="cs-grid" stroke="rgba(127,209,201,.06)"><!-- grid drawn by JS --></g>
-          <!-- ribs hint -->
+          <!-- measurement grid injected by scripts/scenes/cliniscan-scan.js -->
+          <g id="cs-grid" stroke="rgba(127,209,201,.06)"></g>
           <g stroke="rgba(242,237,227,.05)" fill="none" stroke-width="10">
             <path d="M140 150 Q300 110 460 150"/><path d="M130 210 Q300 165 470 210"/>
             <path d="M125 270 Q300 222 475 270"/><path d="M130 330 Q300 282 470 330"/>
             <path d="M140 390 Q300 342 460 390"/>
           </g>
-          <!-- lungs -->
           <path d="M285 120 C200 130 150 220 155 320 C158 395 205 430 255 415 C280 407 288 370 288 320 Z"
                 fill="rgba(127,209,201,.07)" stroke="rgba(127,209,201,.35)" stroke-width="1.5"/>
           <path d="M315 120 C400 130 450 220 445 320 C442 395 395 430 345 415 C320 407 312 370 312 320 Z"
                 fill="rgba(127,209,201,.07)" stroke="rgba(127,209,201,.35)" stroke-width="1.5"/>
-          <!-- grad-cam glow + finding -->
           <circle id="cs-cam" cx="392" cy="300" r="74" fill="url(#cam)" opacity="0"/>
-          <circle cx="392" cy="300" r="13" fill="rgba(224,114,74,.5)" id="cs-nodule" opacity="0"/>
+          <circle id="cs-nodule" cx="392" cy="300" r="13" fill="rgba(224,114,74,.5)" opacity="0"/>
           <g id="cs-box" opacity="0">
             <rect x="344" y="252" width="96" height="96" fill="none" stroke="#e3b15f" stroke-width="1.4" stroke-dasharray="7 5"/>
             <text x="344" y="242" fill="#e3b15f" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">REGION FLAGGED</text>
             <text x="344" y="366" fill="rgba(242,237,227,.55)" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.5">GRAD-CAM · MODEL ATTENTION</text>
           </g>
-          <!-- scanline -->
           <rect id="cs-line" x="0" y="-80" width="600" height="80" fill="url(#scan)"/>
         </svg>
         <p class="hud"><b>CLINISCAN</b> · VINDR-CXR · DICOM</p>
@@ -544,7 +247,7 @@ a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-off
 </section>
 
 <!-- ==================== 05 · CASE STUDY: EV SEGMENTS ==================== -->
-<section class="chapter case" id="ev" data-scrub>
+<section class="chapter case" id="ev">
   <div class="sticky">
     <div class="stage">
       <div class="scene reveal">
@@ -695,222 +398,5 @@ a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber); outline-off
   <span>Designed as a story — scroll to reread</span>
 </footer>
 
-<script>
-(function(){
-"use strict";
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const clamp = (v,a,b)=>Math.min(b,Math.max(a,v));
-const lerp = (a,b,t)=>a+(b-a)*t;
-const easeIO = t=>t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
-
-/* deterministic pseudo-random */
-function mulberry32(seed){
-  return function(){
-    seed|=0; seed=seed+0x6D2B79F5|0;
-    let t=Math.imul(seed^seed>>>15,1|seed);
-    t=t+Math.imul(t^t>>>7,61|t)^t;
-    return ((t^t>>>14)>>>0)/4294967296;
-  };
-}
-
-/* ---------- reveals ---------- */
-const io = new IntersectionObserver(es=>{
-  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
-},{ threshold:.18 });
-document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
-
-/* ---------- chapter rail ---------- */
-const railItems = [...document.querySelectorAll(".rail li")];
-const chapterIO = new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(e.isIntersecting){
-      railItems.forEach(li=>li.classList.toggle("active", li.dataset.for===e.target.id));
-    }
-  });
-},{ rootMargin:"-45% 0px -45% 0px" });
-document.querySelectorAll("section.chapter").forEach(s=>chapterIO.observe(s));
-
-/* ---------- counters (proof) ---------- */
-const cIO = new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(!e.isIntersecting) return;
-    cIO.unobserve(e.target);
-    const el=e.target, target=parseFloat(el.dataset.count),
-          dec=+(el.dataset.dec||0), suf=el.dataset.suffix||"";
-    if(reduced){ el.textContent=target.toFixed(dec)+suf; return; }
-    const t0=performance.now(), dur=1400;
-    (function tick(now){
-      const p=easeIO(clamp((now-t0)/dur,0,1));
-      el.textContent=(target*p).toFixed(dec)+(p===1?suf:"");
-      if(p<1) requestAnimationFrame(tick);
-    })(t0);
-  });
-},{ threshold:.6 });
-document.querySelectorAll(".stat .n").forEach(el=>cIO.observe(el));
-
-/* ---------- scroll plumbing ---------- */
-const progressEl = document.getElementById("progress");
-const scrubs = [...document.querySelectorAll("[data-scrub]")].map(sec=>({sec, p:0}));
-
-function measure(){
-  scrubs.forEach(s=>{
-    const r=s.sec.getBoundingClientRect(), top=r.top+window.scrollY;
-    s.top=top; s.range=Math.max(1, s.sec.offsetHeight-window.innerHeight);
-  });
-}
-measure();
-addEventListener("resize", measure);
-addEventListener("load", measure);
-
-/* ============ SCENE 0 — hero: noise → signal ============ */
-const heroCv=document.getElementById("hero-canvas"), hx=heroCv.getContext("2d");
-const heroState=document.getElementById("hero-state");
-let HW,HH,DPR;
-const rndH=mulberry32(7);
-const P=[]; const NP=420;
-for(let i=0;i<NP;i++) P.push({ nx:rndH(), ny:rndH(), dx:(rndH()-.5)*.00025, dy:(rndH()-.5)*.00035, o:.25+rndH()*.75 });
-function heroSize(){
-  DPR=Math.min(devicePixelRatio||1,2);
-  HW=heroCv.clientWidth; HH=heroCv.clientHeight;
-  heroCv.width=HW*DPR; heroCv.height=HH*DPR; hx.setTransform(DPR,0,0,DPR,0,0);
-}
-heroSize(); addEventListener("resize", heroSize);
-function heroDraw(p,t){
-  hx.clearRect(0,0,HW,HH);
-  const e=easeIO(p);
-  for(let i=0;i<NP;i++){
-    const pt=P[i];
-    pt.nx=(pt.nx+pt.dx+1)%1; pt.ny=(pt.ny+pt.dy+1)%1;
-    const sx=(i/NP)*1.06-.03;
-    const sy=.5 + Math.sin(sx*9.5 + t*.0011)*.11 + Math.sin(sx*23 + t*.0007)*.028;
-    const x=lerp(pt.nx,sx,e)*HW, y=lerp(pt.ny,sy,e)*HH;
-    const amber=e>.55;
-    hx.fillStyle = amber ? `rgba(168,123,45,${.35+pt.o*.55})` : `rgba(32,36,46,${.10+pt.o*.22})`;
-    const r = amber ? 1.5 : 1.1;
-    hx.fillRect(x-r/2, y-r/2, r, r);
-  }
-  if(e>.4){ /* connective stroke once aligned */
-    hx.strokeStyle=`rgba(168,123,45,${(e-.4)*.55})`; hx.lineWidth=1; hx.beginPath();
-    for(let x=0;x<=HW;x+=8){
-      const u=x/HW;
-      const y=(.5 + Math.sin(u*9.5 + t*.0011)*.11 + Math.sin(u*23 + t*.0007)*.028)*HH;
-      x===0 ? hx.moveTo(x,y) : hx.lineTo(x,y);
-    }
-    hx.stroke();
-  }
-  heroState.classList.toggle("signal", e>.55);
-}
-
-/* ============ SCENE 1 — DeepVision heatmap ============ */
-const dvCv=document.getElementById("dv-canvas"), dx=dvCv.getContext("2d");
-const dvCount=document.getElementById("dv-count"), dvAlert=document.getElementById("dv-alert");
-let DW,DH;
-const rndD=mulberry32(42);
-const BLOBS=[]; for(let i=0;i<26;i++) BLOBS.push({ x:rndD(), y:.18+rndD()*.72, s:.35+rndD()*.65, ph:rndD()*6.28 });
-function dvSize(){ const d=Math.min(devicePixelRatio||1,2);
-  DW=dvCv.clientWidth; DH=dvCv.clientHeight; dvCv.width=DW*d; dvCv.height=DH*d; dx.setTransform(d,0,0,d,0,0); }
-function dvDraw(p,t){
-  if(!DW||dvCv.clientWidth!==DW) dvSize();
-  dx.clearRect(0,0,DW,DH);
-  dx.strokeStyle="rgba(242,237,227,.05)"; dx.lineWidth=1;
-  for(let x=0;x<DW;x+=40){ dx.beginPath(); dx.moveTo(x,0); dx.lineTo(x,DH); dx.stroke(); }
-  for(let y=0;y<DH;y+=40){ dx.beginPath(); dx.moveTo(0,y); dx.lineTo(DW,y); dx.stroke(); }
-  const e=easeIO(p);
-  dx.globalCompositeOperation="lighter";
-  const active=Math.ceil(BLOBS.length*e);
-  for(let i=0;i<active;i++){
-    const b=BLOBS[i];
-    const wob=Math.sin(t*.001+b.ph)*.012;
-    const x=(b.x+wob)*DW, y=b.y*DH;
-    const r=(18+b.s*66)*(.45+.55*e);
-    const g=dx.createRadialGradient(x,y,0,x,y,r);
-    const hot=b.s>.75 && e>.75;
-    g.addColorStop(0, hot ? "rgba(224,114,74,.5)" : "rgba(227,177,95,.34)");
-    g.addColorStop(.55,"rgba(224,114,74,.10)");
-    g.addColorStop(1,"rgba(224,114,74,0)");
-    dx.fillStyle=g; dx.beginPath(); dx.arc(x,y,r,0,6.283); dx.fill();
-  }
-  dx.globalCompositeOperation="source-over";
-  dvCount.textContent="EST. COUNT — "+String(Math.round(e*287)).padStart(3,"0");
-  dvAlert.classList.toggle("on", e>.82);
-}
-
-/* ============ SCENE 2 — CliniScan sweep ============ */
-const csLine=document.getElementById("cs-line"), csBox=document.getElementById("cs-box"),
-      csCam=document.getElementById("cs-cam"), csNod=document.getElementById("cs-nodule"),
-      csRead=document.getElementById("cs-read"), csGrid=document.getElementById("cs-grid");
-(function(){ let s="";
-  for(let x=0;x<=600;x+=40) s+=`<line x1="${x}" y1="0" x2="${x}" y2="520"/>`;
-  for(let y=0;y<=520;y+=40) s+=`<line x1="0" y1="${y}" x2="600" y2="${y}"/>`;
-  csGrid.innerHTML=s; })();
-function csDraw(p){
-  const e=easeIO(p);
-  const sweep=clamp(e/.7,0,1);
-  csLine.setAttribute("y", -80 + sweep*600);
-  csRead.textContent="SCAN — "+String(Math.round(sweep*100)).padStart(3,"0")+"%";
-  const found=clamp((e-.55)/.25,0,1);
-  csNod.setAttribute("opacity", found*.9);
-  csCam.setAttribute("opacity", found*.95);
-  csBox.setAttribute("opacity", clamp((e-.68)/.2,0,1));
-  if(found>0 && found<1) csCam.setAttribute("r", 40+34*found);
-}
-
-/* ============ SCENE 3 — EV clusters ============ */
-const evCv=document.getElementById("ev-canvas"), ex=evCv.getContext("2d");
-const evRead=document.getElementById("ev-read");
-let EW,EH;
-const rndE=mulberry32(11);
-const CENTERS=[{x:.26,y:.3,c:"163,197,133"},{x:.72,y:.26,c:"227,177,95"},{x:.3,y:.74,c:"127,209,201"},{x:.74,y:.7,c:"224,114,74"}];
-const DOTS=[]; for(let i=0;i<150;i++){
-  const k=i%4, c=CENTERS[k], a=rndE()*6.283, rr=Math.pow(rndE(),.6);
-  DOTS.push({ sx:rndE(), sy:rndE(), tx:c.x+Math.cos(a)*rr*.13, ty:c.y+Math.sin(a)*rr*.15, k, r:1.4+rndE()*2.2 });
-}
-function evSize(){ const d=Math.min(devicePixelRatio||1,2);
-  EW=evCv.clientWidth; EH=evCv.clientHeight; evCv.width=EW*d; evCv.height=EH*d; ex.setTransform(d,0,0,d,0,0); }
-function evDraw(p,t){
-  if(!EW||evCv.clientWidth!==EW) evSize();
-  ex.clearRect(0,0,EW,EH);
-  ex.strokeStyle="rgba(242,237,227,.05)";
-  for(let x=0;x<EW;x+=40){ ex.beginPath(); ex.moveTo(x,0); ex.lineTo(x,EH); ex.stroke(); }
-  for(let y=0;y<EH;y+=40){ ex.beginPath(); ex.moveTo(0,y); ex.lineTo(EW,y); ex.stroke(); }
-  const e=easeIO(p);
-  DOTS.forEach(d=>{
-    const drift=Math.sin(t*.0009 + d.k*2 + d.r)*(1-e)*.01;
-    const x=lerp(d.sx+drift, d.tx, e)*EW, y=lerp(d.sy, d.ty, e)*EH;
-    const col=CENTERS[d.k].c;
-    const a = .18 + e*.6;
-    ex.fillStyle = e<.25 ? `rgba(242,237,227,${.22})` : `rgba(${col},${a})`;
-    ex.beginPath(); ex.arc(x,y,d.r,0,6.283); ex.fill();
-  });
-  if(e>.72){ /* centroid rings */
-    const k=(e-.72)/.28;
-    CENTERS.forEach(c=>{
-      ex.strokeStyle=`rgba(${c.c},${.5*k})`; ex.lineWidth=1;
-      ex.beginPath(); ex.arc(c.x*EW,c.y*EH, 46*k+8, 0, 6.283); ex.stroke();
-      ex.fillStyle=`rgba(${c.c},${.9*k})`;
-      ex.beginPath(); ex.arc(c.x*EW,c.y*EH, 2.4, 0, 6.283); ex.fill();
-    });
-  }
-  evRead.textContent = e<.7 ? "CLUSTERING — k = 4" : "4 SEGMENTS RESOLVED";
-}
-
-/* ---------- master loop ---------- */
-const sceneFns={ ch0:heroDraw, dv:dvDraw, cs:(p)=>csDraw(p), ev:evDraw };
-function frame(t){
-  const y=window.scrollY, vh=innerHeight;
-  progressEl.style.transform="scaleX("+clamp(y/(document.documentElement.scrollHeight-vh),0,1)+")";
-  scrubs.forEach(s=>{
-    let p=clamp((y-s.top)/s.range,0,1);
-    if(reduced) p=1;
-    const fn=sceneFns[s.sec.id];
-    /* only draw when on/near screen */
-    const r=s.sec.getBoundingClientRect();
-    if(fn && r.bottom>-vh*.2 && r.top<vh*1.2) fn(p,t);
-  });
-  requestAnimationFrame(frame);
-}
-requestAnimationFrame(frame);
-})();
-</script>
 </body>
 </html>

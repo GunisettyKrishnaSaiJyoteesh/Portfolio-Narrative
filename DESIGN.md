@@ -2,8 +2,10 @@
 
 A narrative, scroll-driven portfolio for **Gunisetty Krishna Sai Jyoteesh** — an aspiring
 data scientist in love with AI & machine learning — rebuilt from the materials in
-`Portfolio/Main` (the previous React/Vite site). One file, zero dependencies:
-open `index.html` or host it anywhere static.
+`Portfolio/Main` (the previous React/Vite site). Zero dependencies.
+
+This file covers *why the site looks and reads the way it does*. For the file layout, the
+scroll engine and how to run or build it, see [README.md](README.md).
 
 ---
 
@@ -59,6 +61,13 @@ rail (right edge) acting as the table of contents and a hairline progress bar as
   or performance figures appear anywhere unless they exist in the source material.
 - **Reduced-motion support**: `prefers-reduced-motion` renders every scene in its final state
   and disables scroll effects.
+- **Content in HTML, behaviour in modules**: every word and link lives in `index.html`, so the
+  portfolio is fully readable with JavaScript disabled and fully visible to crawlers. The
+  scripts are enhancement only — they add motion, never meaning.
+- **Two palettes, kept apart**: the page tints are darkened for legibility on paper; the canvas
+  scenes keep their luminous originals because they sit on dark panels. Merging them into one
+  set would mean tuning one context at the other's expense, so `styles/tokens.css` and
+  `scripts/config/palette.js` are deliberately separate (documented in both).
 
 ## Evidence mapping (every fact → its source in `Main/`)
 
@@ -67,7 +76,7 @@ rail (right edge) acting as the table of contents and a hairline progress bar as
 - CGPA 9.26, four internships, certifications — `src/pages/Resume.tsx`
 - All seven projects, links and stacks — `src/pages/ViewAllProjects.tsx`
 - Email, location — `src/components/Contact.tsx`
-- Portrait — `public/pp.jpg` (duotone treatment via CSS filter)
+- Portrait — `public/pp.jpg` → `assets/pp.jpg` (monochrome treatment via CSS filter)
 
 ## Future enhancements (speculative — not yet built)
 

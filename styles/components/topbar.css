@@ -1,0 +1,26 @@
+.topbar{
+  position:fixed; inset:0 0 auto 0; z-index:80;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1.05rem clamp(1.25rem,4vw,3rem);
+  backdrop-filter:blur(10px);
+  background:linear-gradient(rgba(246,241,231,.88), rgba(246,241,231,0));
+}
+
+.monogram{
+  font-family:var(--mono); font-size:.8rem; letter-spacing:.34em;
+  color:var(--ivory); text-decoration:none;
+}
+.monogram b{ color:var(--amber); font-weight:500; }
+
+.topbar nav{ display:flex; gap:1.8rem; }
+.topbar nav a{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.18em;
+  text-transform:uppercase; text-decoration:none; color:var(--muted);
+  transition:color .25s;
+}
+.topbar nav a:hover,
+.topbar nav a:focus-visible{ color:var(--amber); }
+
+@media (max-width:900px){
+  .topbar nav a.hide-sm{ display:none; }
+}

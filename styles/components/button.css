@@ -1,0 +1,10 @@
+.btn{
+  font-family:var(--mono); font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
+  text-decoration:none; padding:.95rem 1.7rem; border-radius:2px;
+  border:1px solid var(--amber); color:#fff; background:var(--amber);
+  transition:background .25s, color .25s, border-color .25s;
+}
+.btn:hover{ background:transparent; color:var(--amber); }
+
+.btn.ghost{ background:transparent; color:var(--muted); border-color:var(--line-2); }
+.btn.ghost:hover{ color:var(--amber); border-color:var(--amber); }

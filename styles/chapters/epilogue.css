@@ -1,0 +1,29 @@
+/* 09 — Epilogue + page footer. One centred call to action. */
+
+#ch9 .frame{ text-align:center; align-items:center; }
+#ch9 .lede{ margin:0 auto; }
+
+.mail{
+  display:inline-block; margin-top:2.6rem;
+  font-family:var(--serif); font-size:clamp(1.3rem,3.4vw,2.5rem);
+  color:var(--ivory); text-decoration:none;
+  border-bottom:1px solid var(--amber); padding-bottom:.35rem;
+  overflow-wrap:anywhere;
+  transition:color .3s;
+}
+.mail:hover{ color:var(--amber); }
+
+.socials{ display:flex; gap:2rem; justify-content:center; flex-wrap:wrap; margin-top:2.6rem; }
+.socials a{
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); transition:color .25s;
+}
+.socials a:hover{ color:var(--amber); }
+
+footer{
+  border-top:1px solid var(--line);
+  padding:2.2rem clamp(1.4rem,6vw,7rem);
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--faint);
+}

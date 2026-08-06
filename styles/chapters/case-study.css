@@ -1,0 +1,57 @@
+/* 03–05 — Case studies. One scroll-scrubbed scene beside its narrative.
+   Each case sets --tint; everything chromatic below derives from it. */
+
+.case{ height:260vh; }                /* 100vh sticky + 160vh of scrub range */
+.case .sticky{ position:sticky; top:0; height:100vh; overflow:hidden; }
+
+.case .stage{
+  height:100%; max-width:1380px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.5rem,4vw,4rem);
+  align-items:center;
+  padding:clamp(4.5rem,9vh,6rem) clamp(1.4rem,5vw,5rem);
+}
+.case .stage > *{ min-width:0; }
+
+.case .kicker{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.3em;
+  text-transform:uppercase; margin-bottom:1.3rem;
+}
+
+.case .beats{ margin-top:1.6rem; display:grid; gap:1.1rem; max-width:34em; }
+.beat{ border-left:1px solid var(--line-2); padding-left:1.2rem; }
+.beat .b-label{
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--faint);
+}
+.beat p{ color:var(--muted); font-size:.97rem; margin-top:.3rem; }
+
+.case .tags{ display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1.5rem; }
+
+.case .links{ display:flex; flex-wrap:wrap; gap:1rem 1.6rem; margin-top:1.6rem; }
+.case .links a{
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+  text-decoration:none; padding-bottom:.3rem; border-bottom:1px solid var(--line-2);
+  color:var(--muted);
+  transition:border-color .25s, color .25s;
+}
+
+/* per-case tint */
+#dv{ --tint:var(--heat);   }
+#cs{ --tint:var(--clinic); }
+#ev{ --tint:var(--ev);     }
+
+.case .kicker,
+.case .beat .b-label b{ color:var(--tint); }
+.case .beat{ border-color:color-mix(in srgb, var(--tint) 45%, transparent); }
+.case .links a:hover{ color:var(--tint); border-color:var(--tint); }
+.case .scene{ box-shadow:0 0 90px -30px color-mix(in srgb, var(--tint) 28%, transparent); }
+
+@media (max-width:900px){
+  .case .stage{
+    grid-template-columns:1fr; grid-template-rows:auto auto;
+    gap:1.2rem; align-items:start; overflow:hidden;
+  }
+  .case .scene{ height:38vh; min-height:250px; }
+  .case .copy{ align-self:center; }
+  .case h2{ font-size:clamp(1.6rem,6.4vw,2.4rem); }
+}

@@ -1,0 +1,27 @@
+/* 01 — The Analyst. Portrait plate + education rule. */
+
+.portrait{
+  position:relative; border:1px solid var(--line-2); padding:1rem; background:var(--ink-2);
+}
+.portrait img{
+  width:100%; aspect-ratio:4/5; object-fit:cover; object-position:50% 18%;
+  filter:grayscale(1) contrast(1.06) brightness(1.14);
+}
+.portrait figcaption{
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:.3rem 1rem; margin-top:.9rem;
+  font-family:var(--mono); font-size:.64rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint);
+}
+/* registration mark */
+.portrait::after{
+  content:""; position:absolute; top:-9px; left:-9px; width:26px; height:26px;
+  border-top:1px solid var(--amber); border-left:1px solid var(--amber);
+}
+
+.edu{ margin-top:2.2rem; border-left:1px solid var(--amber); padding:.35rem 0 .35rem 1.4rem; }
+.edu .deg{ font-family:var(--serif); font-size:1.25rem; }
+.edu .inst{ color:var(--muted); font-size:.95rem; margin-top:.2rem; }
+.edu .meta{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
+  color:var(--amber); margin-top:.55rem; text-transform:uppercase;
+}

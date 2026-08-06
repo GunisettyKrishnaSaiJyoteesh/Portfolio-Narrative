@@ -1,0 +1,23 @@
+/* Table of contents, always present, never shouting. */
+.rail{
+  position:fixed; right:clamp(.8rem,2.4vw,2.2rem); top:50%; transform:translateY(-50%);
+  z-index:80; display:flex; flex-direction:column; gap:.9rem; list-style:none;
+}
+
+.rail a{
+  display:flex; align-items:center; justify-content:flex-end; gap:.6rem;
+  text-decoration:none;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; color:var(--faint);
+  transition:color .3s;
+}
+.rail a .tick{ width:14px; height:1px; background:var(--faint); transition:width .3s, background .3s; }
+.rail a .lbl{ opacity:0; transform:translateX(4px); transition:opacity .3s, transform .3s; }
+.rail a:hover .lbl{ opacity:1; transform:none; }
+
+.rail li.active a{ color:var(--amber); }
+.rail li.active a .tick{ width:26px; background:var(--amber); }
+.rail li.active a .lbl{ opacity:1; transform:none; }
+
+@media (max-width:900px){
+  .rail{ display:none; }
+}

@@ -1,0 +1,16 @@
+/** Seeded PRNG (mulberry32).
+ *
+ *  Scenes are seeded rather than random so that a given crowd, cluster or
+ *  particle field looks identical on every visit and in every screenshot.
+ *  A portfolio that reshuffles itself between reloads is a portfolio whose
+ *  layout you cannot art-direct.
+ */
+export function mulberry32(seed) {
+  return function next() {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}

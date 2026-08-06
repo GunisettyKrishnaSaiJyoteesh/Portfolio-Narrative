@@ -1,0 +1,10 @@
+# Build output. The source tree deploys as-is over http (GitHub Pages, Netlify),
+# so dist/ is a convenience artifact, not something to track.
+# Delete this line if you'd rather deploy the built single file from the repo.
+dist/
+
+# OS / editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp

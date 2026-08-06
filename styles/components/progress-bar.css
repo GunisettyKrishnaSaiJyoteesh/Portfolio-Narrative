@@ -1,0 +1,6 @@
+/* Reading position. Scaled on the X axis from JS — transform only, never width. */
+#progress{
+  position:fixed; top:0; left:0; height:2px; width:100%; z-index:90;
+  transform-origin:0 50%; transform:scaleX(0);
+  background:var(--amber);
+}

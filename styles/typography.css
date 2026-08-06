@@ -1,0 +1,21 @@
+/* The three voices: serif narrates, sans explains, mono instruments. */
+
+.eyebrow{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--amber); margin-bottom:1.4rem;
+}
+.eyebrow .rule{
+  display:inline-block; width:34px; height:1px; background:var(--amber);
+  vertical-align:middle; margin-right:.8rem;
+}
+
+h1,h2{ font-family:var(--serif); font-weight:400; letter-spacing:-.01em; }
+h1{ font-size:clamp(2.6rem,7.2vw,5.6rem); line-height:1.04; }
+h2{ font-size:clamp(2rem,4.6vw,3.6rem); line-height:1.08; margin-bottom:1.6rem; }
+h1 em, h2 em{ font-style:italic; color:var(--amber); }
+
+.lede{ font-size:clamp(1.02rem,1.5vw,1.22rem); color:var(--muted); max-width:34em; }
+
+.prose p{ color:var(--muted); max-width:36em; }
+.prose p + p{ margin-top:1em; }
+.prose strong{ color:var(--ivory); font-weight:500; }

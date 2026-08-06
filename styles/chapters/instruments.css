@@ -1,0 +1,20 @@
+/* 02 — The Instruments. Hairline grid via 1px gaps over a rule-coloured bed. */
+
+.inst-grid{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.4rem;
+}
+@media (max-width:1020px){ .inst-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px) { .inst-grid{ grid-template-columns:1fr; } }
+
+.inst{ background:var(--ink); padding:1.9rem 1.7rem; transition:background .35s; }
+.inst:hover{ background:var(--ink-2); }
+.inst .no{ font-family:var(--mono); font-size:.64rem; color:var(--faint); letter-spacing:.2em; }
+.inst h3{ font-family:var(--serif); font-weight:400; font-size:1.28rem; margin:.7rem 0 1.1rem; }
+.inst ul{ list-style:none; display:flex; flex-wrap:wrap; gap:.45rem; }
+.inst li{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.06em; color:var(--muted);
+  padding:.3rem .62rem; border:1px solid var(--line); border-radius:999px;
+}
+/* tools that actually carried a case study */
+.inst li.hot{ color:var(--amber); border-color:rgba(168,123,45,.45); }
