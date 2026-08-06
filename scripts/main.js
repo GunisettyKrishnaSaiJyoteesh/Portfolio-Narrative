@@ -10,6 +10,7 @@ import { ScrollDirector } from "./core/scroll-director.js";
 import { initReveals } from "./ui/reveal.js";
 import { initChapterRail } from "./ui/chapter-rail.js";
 import { initCounters } from "./ui/counters.js";
+import { initTilt } from "./ui/tilt.js";
 import { createProgressBar } from "./ui/progress-bar.js";
 import { createHeroScene } from "./scenes/hero-signal.js";
 import { createDeepVisionScene } from "./scenes/deepvision-heatmap.js";
@@ -36,6 +37,7 @@ function boot() {
   initReveals();
   initChapterRail();
   initCounters({ reducedMotion });
+  initTilt({ reducedMotion });
 
   // reduced motion asks us not to scrub; the article layout has nothing to
   // scrub against. Either way, scenes render resolved.
@@ -48,7 +50,9 @@ function boot() {
     const section = document.getElementById(id);
     if (!section) continue;
 
-    const render = createScene(section);
+    // scenes need reducedMotion too: pinning progress stops the scrub, but
+    // the 3D cameras also drift over time, and that has to stop as well
+    const render = createScene(section, { reducedMotion });
     if (render) director.addScrub(section, render);
   }
 

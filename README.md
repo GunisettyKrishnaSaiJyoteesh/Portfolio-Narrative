@@ -61,9 +61,10 @@ scripts/
     math.js             clamp · lerp · easeInOut · range · pad
     random.js           seeded PRNG — scenes look the same on every visit
     canvas.js           DPR-aware drawing surface + grid
+    three-d.js          orbit · perspective projection · depth cue · sort
     motion.js           prefers-reduced-motion gate
     scroll-director.js  the single rAF loop; scrub tracks + frame listeners
-  ui/                   reveal · chapter-rail · counters · progress-bar
+  ui/                   reveal · chapter-rail · counters · progress-bar · tilt
   scenes/               one module per scroll-scrubbed visual
 ```
 
@@ -78,6 +79,18 @@ reduced motion, every track is pinned to progress `1` and the scenes become stat
 A scene module is a factory: it takes its `<section>`, grabs what it needs, and returns
 `render(progress, time)`. It owns no scroll logic and no globals.
 
+### The 3D
+
+`core/three-d.js` is about 60 lines: rotate a point, divide by depth, fade by distance,
+sort back-to-front. Two scenes use it — the prologue's wave surface and the EV scatter —
+and both drive the camera from scroll progress, so the orbit is something the reader
+performs rather than watches.
+
+It is hand-rolled deliberately. Three.js would weigh roughly ten times this entire page
+to render a few hundred points, and the zero-dependency property is worth more here than
+a scene graph nobody needs. If a scene ever wants real geometry, lighting or models,
+that is the point to reach for WebGL — not before.
+
 ## Common edits
 
 | Task | Where |
@@ -88,6 +101,8 @@ A scene module is a factory: it takes its `<section>`, grabs what it needs, and 
 | Update experience | `index.html`, chapter 07 |
 | Update the Proof numbers | `index.html`, chapter 08 — `data-count`, `data-dec`, `data-suffix` |
 | Retune a scene | the matching file in `scripts/scenes/` — thresholds are named constants at the top |
+| Change the 3D camera | `createCamera({ distance, focalRatio, centre })` in the scene; `centre` shifts the vanishing point off-axis |
+| Add tilt to something | put `data-tilt` on it; depth constants live in `scripts/ui/tilt.js` |
 
 Content stays in `index.html` on purpose: it is the SEO-visible, no-JavaScript-required layer.
 The scripts are pure enhancement — if `main.js` never loads, the portfolio still reads.

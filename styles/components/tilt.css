@@ -1,0 +1,23 @@
+/* 3D tilt, driven by scripts/ui/tilt.js writing an inline transform.
+   The transition here is only for the settle: while the pointer is moving,
+   .tilting removes it so the card tracks the cursor instead of lagging it. */
+
+[data-tilt]{
+  transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.2,.6,.2,1), box-shadow .55s ease;
+}
+[data-tilt].tilting{
+  transition:box-shadow .3s ease;
+  box-shadow:0 22px 45px -28px rgba(32,36,46,.45);
+}
+
+/* Perspective belongs to the parent, and each card needs its own vanishing
+   point — shared perspective on the grid would skew the outer cards as if
+   they were being viewed from the side. Hence perspective() in the inline
+   transform, and only the containing block declared here. */
+.inst-grid,
+.split{ perspective:1000px; }
+
+@media (prefers-reduced-motion: reduce){
+  [data-tilt]{ transition:none; }
+}

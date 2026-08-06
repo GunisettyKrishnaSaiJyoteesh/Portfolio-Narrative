@@ -24,12 +24,12 @@ rail (right edge) acting as the table of contents and a hairline progress bar as
 
 | # | Chapter | Role in the narrative |
 |---|---------|----------------------|
-| 00 | Prologue | Hook — noise becomes signal as you scroll (scroll-scrubbed canvas) |
+| 00 | Prologue | Hook — a 3D point cloud resolves from noise onto a wave surface as you scroll |
 | 01 | The Analyst | The protagonist: bio, education, portrait |
 | 02 | The Instruments | Toolkit grid — no skill bars, no percentages (they read as noise) |
 | 03 | DeepVision | Case study, scroll-scrubbed scene: heatmap forms, count rises, alert fires |
 | 04 | CliniScan | Case study, scroll-scrubbed scene: scanline sweep → flagged region → Grad-CAM |
-| 05 | Segments | Case study, scroll-scrubbed scene: 150 points converge into k=4 clusters |
+| 05 | Segments | Case study, scroll-scrubbed 3D scene: 150 points converge into k=4 clusters as the camera orbits |
 | 06 | Field Notes | The four smaller projects — honest, one paragraph each |
 | 07 | The Road | Experience timeline, newest first, "now" marker glowing |
 | 08 | Proof | Verifiable numbers + certifications |
@@ -68,6 +68,16 @@ rail (right edge) acting as the table of contents and a hairline progress bar as
   scenes keep their luminous originals because they sit on dark panels. Merging them into one
   set would mean tuning one context at the other's expense, so `styles/tokens.css` and
   `scripts/config/palette.js` are deliberately separate (documented in both).
+- **3D only where depth means something.** The prologue is 3D because the metaphor is a cloud
+  resolving into a surface, and that is a volume. The EV scatter is 3D because segmentation runs
+  over many variables at once — a flat plot quietly implies there were two — and because from a
+  single angle two clusters can overlap into one blob, so the orbit does real work.
+  DeepVision stays flat on purpose: it depicts a camera feed, and tilting a video frame into
+  space would be a lie about what CSRNet returns. CliniScan stays flat for the same reason —
+  an X-ray is a projection already.
+- **The tilt is 5°.** Enough for the toolkit cards and the portrait to read as objects with
+  thickness; not enough to look like a template. Skipped entirely for reduced motion and for
+  coarse pointers, where a tilt firing on tap reads as a rendering bug.
 
 ## Evidence mapping (every fact → its source in `Main/`)
 
