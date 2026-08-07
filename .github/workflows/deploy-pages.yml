@@ -30,7 +30,6 @@ jobs:
           node-version: 22
 
       - name: Build static site
-        working-directory: Narrative
         run: node build.mjs
 
       - name: Configure GitHub Pages
@@ -39,7 +38,7 @@ jobs:
       - name: Upload built site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: Narrative/dist
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
